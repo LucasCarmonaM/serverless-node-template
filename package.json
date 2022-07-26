@@ -1,0 +1,42 @@
+{
+  "name": "serverless-node-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "serverless-dynamics.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "offline": "SLS_DEBUG=* serverless offline start",
+    "deploy:staging": "sls deploy -s dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasCarmonaM/serverless-node-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasCarmonaM/serverless-node-template/issues"
+  },
+  "homepage": "https://github.com/LucasCarmonaM/serverless-node-template#readme",
+  "dependencies": {
+    "@middy/core": "^3.1.0",
+    "@middy/http-error-handler": "^3.1.0",
+    "@middy/http-event-normalizer": "^3.1.0",
+    "@middy/http-json-body-parser": "^3.1.0",
+    "@middy/http-urlencode-body-parser": "^3.1.0",
+    "@serverless/utils": "^6.7.0",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "babel-loader": "^8.2.5",
+    "serverless-bundle": "^5.4.0",
+    "serverless-offline": "^9.0.0",
+    "serverless-webpack": "^5.7.1",
+    "webpack": "^5.74.0"
+  }
+}

@@ -1,0 +1,8 @@
+hello:
+  handler: module/hello/endpoints/hello.handler
+  events:
+    - http:
+        method: POST
+        path: /email
+        cors:
+          origin: '*'

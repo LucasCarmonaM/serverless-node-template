@@ -1,0 +1,74 @@
+# Name of the lambda service
+service: serverless-node-template
+
+# Serverless framework plugins
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+# Global config
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'local'}
+  region: ${self:custom.customEnvironment.REGION.${self:custom.myStage}}
+  eventBridge:
+    useCloudFormation: true
+  apiGateway:
+    restApiId: ${self:custom.customEnvironment.APIGATEWAY.${self:custom.myStage}.restApiId}
+    restApiRootResourceId: ${self:custom.customEnvironment.APIGATEWAY.${self:custom.myStage}.restApiRootResourceId}
+  # Role thats gonna use this whole lambda service (all functions on it) when run
+  iam:
+    role: arn:aws:iam::656349505423:role/lambda-serverless-api
+  # Custom config for settings global configuration depending if it is development productive or local
+  environment: ${file(./config/${self:provider.stage}.yml)}
+
+# Global config of packaging functions
+package:
+  individually: true
+
+# Custom variables *
+custom:
+  myStage: ${opt:stage, self:provider.stage}
+  region: ${self:provider.region}
+  customEnvironment:
+    NODE_ENV:
+      prod: 'production'
+      dev: 'staging'
+      local: 'development'
+    REGION:
+      prod: 'us-east-1'
+      dev: 'us-west-2'
+      local: 'us-west-2'
+    VPC:
+      prod:
+        securityGroupIds: []
+        subnetIds: []
+      dev:
+        securityGroupIds: []
+        subnetIds: []
+      local:
+        securityGroupIds: []
+        subnetIds: []
+    APIGATEWAY:
+      prod:
+        restApiId: ''
+        restApiRootResourceId: ''
+      dev:
+        restApiId: ''
+        restApiRootResourceId: ''
+      local:
+        restApiId: 'null'
+        restApiRootResourceId: 'null'
+
+  # SLS Offline config      
+  serverless-offline:
+    httpPort: 9000
+    host: '0.0.0.0'
+    corsAllowOrigin: '*'
+  
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+functions: ${file(serverless-dynamic.js)}
