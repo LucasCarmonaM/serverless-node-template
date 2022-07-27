@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "offline": "SLS_DEBUG=* serverless offline start",
-    "deploy:staging": "sls deploy -s dev"
+    "deploy:staging": "sls deploy -s dev",
+    "deploy:prod": "sls deploy -s dev"
   },
   "repository": {
     "type": "git",

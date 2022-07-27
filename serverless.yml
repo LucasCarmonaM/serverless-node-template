@@ -10,6 +10,8 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
+  layers:
+    - arn:aws:lambda:us-east-1:787440803017:layer:nodejs_serverless_layer:2
   stage: ${opt:stage, 'local'}
   region: ${self:custom.customEnvironment.REGION.${self:custom.myStage}}
   eventBridge:
@@ -19,7 +21,7 @@ provider:
     restApiRootResourceId: ${self:custom.customEnvironment.APIGATEWAY.${self:custom.myStage}.restApiRootResourceId}
   # Role thats gonna use this whole lambda service (all functions on it) when run
   iam:
-    role: arn:aws:iam::656349505423:role/lambda-serverless-api
+    role: arn:aws:iam::787440803017:role/data-serverless-dev-us-west-2-lambdaRole
   # Custom config for settings global configuration depending if it is development productive or local
   environment: ${file(./config/${self:provider.stage}.yml)}
 
@@ -52,8 +54,8 @@ custom:
         subnetIds: []
     APIGATEWAY:
       prod:
-        restApiId: ''
-        restApiRootResourceId: ''
+        restApiId: 'ejfzjk3dml'
+        restApiRootResourceId: '8vzuf1s81f'
       dev:
         restApiId: ''
         restApiRootResourceId: ''

@@ -3,6 +3,6 @@ hello:
   events:
     - http:
         method: POST
-        path: /email
+        path: /hello
         cors:
           origin: '*'
